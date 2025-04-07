@@ -1,10 +1,12 @@
-from flask import Flask, render_template, request
+from flask import Flask, request, jsonify, render_template, send_file, make_response
 import google.generativeai as genai
 import os
 import re
 import pickle
+import pdfkit
+import io
+import json
 import numpy as np
-from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 
 # 🔐 Configure Gemini API
@@ -134,6 +136,53 @@ def mealplan():
             diet_plan = f"Error generating diet plan: {str(e)}"
 
     return render_template("mealplan.html", diet_plan=diet_plan)
+
+@app.route('/download_pdf', methods=['POST'])
+def download_pdf():
+    raw_html = request.form['diet_html']  # ✅ Fixed here
+
+    full_html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            table {{
+                width: 100%;
+                border-collapse: collapse;
+            }}
+            th, td {{
+                border: 1px solid #ccc;
+                padding: 10px;
+                text-align: center;
+            }}
+            th {{
+                background-color: #007bff;
+                color: white;
+            }}
+            tr:nth-child(even) {{
+                background-color: #f2f2f2;
+            }}
+        </style>
+    </head>
+    <body>
+        <h2>Personalized Diet Plan</h2>
+        {raw_html}
+    </body>
+    </html>
+    """
+
+    # 👇 Path to wkhtmltopdf (update this as per your system)
+    config = pdfkit.configuration(wkhtmltopdf='C:\\Users\\ADRIAN\\OneDrive\\Desktop\\Project2025\\Project2025\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
+
+    # Generate PDF from HTML string
+    pdf = pdfkit.from_string(full_html, False, configuration=config)
+
+    # Return PDF as a downloadable response
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'attachment; filename=diet_plan.pdf'
+    return response
 
 # 🏋️ Workout Plan Route
 @app.route('/workout')
