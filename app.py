@@ -10,7 +10,9 @@ from flask_cors import CORS
 # 🔐 Configure Gemini API
 os.environ["GOOGLE_API_KEY"] = "AIzaSyD2rwr19WRjGwngGOdfk2EWfhwBaGhc84U"
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
-model = genai.GenerativeModel(model_name="models/gemini-1.5-pro-latest")
+
+# ✅ Rename Gemini model to avoid clash with ML model
+gemini_model = genai.GenerativeModel(model_name="models/gemini-1.5-pro-latest")
 
 # Load model and encoders
 with open("model.pkl", "rb") as f:
@@ -44,11 +46,25 @@ def signup():
 def login():
     return render_template("login.html")
 
-# 🔑 Login Page
+# 🔧 Equipment Page
 @app.route('/equipment')
 def equipment():
     return render_template("equipment.html")
 
+# ✅ NEW: Generate Meal Plan via Gemini AI
+@app.route('/generateMealPlan', methods=['POST'])
+def generateMealPlan():
+    try:
+        data = request.json
+        calories = data['calories']
+
+        prompt = f"Create a meal plan under {calories} calories including breakfast, lunch, and dinner. " \
+                 f"Include Indian foods. Present it in a table with columns: Meal, Dish, Calories."
+
+        response = gemini_model.generate_content(prompt)
+        return jsonify({'meal_plan': response.text})
+    except Exception as e:
+        return jsonify({'error': f"Error generating diet plan: {str(e)}"}), 500
 
 # 🥗 Meal Plan Route
 @app.route("/mealplan", methods=["GET", "POST"])
@@ -91,7 +107,7 @@ def mealplan():
         """
 
         try:
-            response = model.generate_content(prompt)
+            response = gemini_model.generate_content(prompt)
             text = response.text.strip()
 
             # Convert response to HTML table
@@ -124,8 +140,7 @@ def mealplan():
 def workout():
     return render_template("workout.html")
 
-
-
+# 💪 Workout Prediction Route
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.get_json()
@@ -211,7 +226,6 @@ def predict():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 400
-
 
 # 🏁 Start app
 if __name__ == "__main__":
