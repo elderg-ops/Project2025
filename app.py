@@ -44,7 +44,10 @@ def signup():
 def login():
     return render_template("login.html")
 
-
+# 🔑 Login Page
+@app.route('/equipment')
+def equipment():
+    return render_template("equipment.html")
 
 
 # 🥗 Meal Plan Route

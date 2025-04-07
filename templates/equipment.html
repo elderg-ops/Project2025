@@ -5,48 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home Workout Equipment - FitEdge</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- Meta Tags for SEO and Social Sharing -->
+  <meta name="description" content="Explore expert guidance on home gym equipment including tips, posture advice, and images for proper usage.">
+  <meta property="og:title" content="Home Workout Equipment - FitEdge">
+  <meta property="og:description" content="Master your home workout gear with this visual and informative guide.">
+  <meta property="og:image" content="https://via.placeholder.com/300x200">
+  <meta property="og:type" content="website">
+
+  <!-- Dark Mode Support -->
+  <script>
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white">
 
   <!-- Header -->
-  <header class="bg-white shadow-md">
+  <header class="bg-white shadow-md dark:bg-gray-800 dark:text-white">
     <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
-      <a href="index.html" class="text-xl font-bold text-blue-600">FitEdge</a>
-      <h1 class="text-lg font-semibold text-gray-700">Home Equipment Guide</h1>
+      <a href="/" class="text-xl font-bold text-blue-600">FitEdge</a>
+      <a href="/" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+        Home
+      </a>      
     </div>
   </header>
 
   <!-- Introduction -->
   <section class="py-12 px-4 max-w-4xl mx-auto text-center">
     <h2 class="text-4xl font-bold text-blue-600 mb-4">Master Your Home Workout Gear</h2>
-    <p class="text-lg text-gray-700">
+    <p class="text-lg text-gray-700 dark:text-gray-300">
       Learn how to properly use your home gym equipment with expert tips, posture guidance, and visual references to prevent injury and boost results.
     </p>
   </section>
 
   <!-- Equipment Grid -->
   <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 max-w-6xl mx-auto mb-12">
-    <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl shadow hover:shadow-lg transition cursor-pointer p-6" onclick="openModal('resistanceBands')">
+    <!-- Equipment Cards -->
+    <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl shadow hover:shadow-lg hover:scale-105 transform transition-transform duration-200 ease-in-out cursor-pointer p-6" onclick="openModal('resistanceBands')">
       <h3 class="text-xl font-bold text-blue-700">Resistance Bands</h3>
       <p class="text-gray-700 text-sm mt-1">Strength & flexibility training.</p>
     </div>
 
-    <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl shadow hover:shadow-lg transition cursor-pointer p-6" onclick="openModal('dumbbells')">
+    <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl shadow hover:shadow-lg hover:scale-105 transform transition-transform duration-200 ease-in-out cursor-pointer p-6" onclick="openModal('dumbbells')">
       <h3 class="text-xl font-bold text-blue-700">Dumbbells</h3>
       <p class="text-gray-700 text-sm mt-1">Versatile and effective.</p>
     </div>
 
-    <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl shadow hover:shadow-lg transition cursor-pointer p-6" onclick="openModal('kettlebell')">
+    <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl shadow hover:shadow-lg hover:scale-105 transform transition-transform duration-200 ease-in-out cursor-pointer p-6" onclick="openModal('kettlebell')">
       <h3 class="text-xl font-bold text-blue-700">Kettlebell</h3>
       <p class="text-gray-700 text-sm mt-1">Explosive strength training.</p>
     </div>
 
-    <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl shadow hover:shadow-lg transition cursor-pointer p-6" onclick="openModal('pullUpBar')">
+    <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl shadow hover:shadow-lg hover:scale-105 transform transition-transform duration-200 ease-in-out cursor-pointer p-6" onclick="openModal('pullUpBar')">
       <h3 class="text-xl font-bold text-blue-700">Pull-Up Bar</h3>
       <p class="text-gray-700 text-sm mt-1">Upper body strength builder.</p>
     </div>
 
-    <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl shadow hover:shadow-lg transition cursor-pointer p-6" onclick="openModal('ankleWeights')">
+    <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl shadow hover:shadow-lg hover:scale-105 transform transition-transform duration-200 ease-in-out cursor-pointer p-6" onclick="openModal('ankleWeights')">
       <h3 class="text-xl font-bold text-blue-700">Ankle Weights</h3>
       <p class="text-gray-700 text-sm mt-1">Add resistance to any move.</p>
     </div>
@@ -55,13 +75,14 @@
   <!-- Modals -->
   <div id="modalBackdrop" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40" onclick="closeModal()"></div>
 
-  <div id="modalContent" class="fixed inset-0 z-50 hidden overflow-y-auto flex justify-center items-start pt-12">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl mx-4 p-6 relative">
+  <div id="modalContent" role="dialog" aria-modal="true" class="fixed inset-0 z-50 hidden overflow-y-auto flex justify-center items-start pt-12">
+    <div class="bg-white dark:bg-gray-800 dark:text-white rounded-2xl shadow-2xl w-full max-w-3xl mx-4 p-6 relative">
       <button class="absolute top-4 right-4 text-red-600 font-bold text-lg" onclick="closeModal()">&times;</button>
       <div id="modalInnerContent"></div>
     </div>
   </div>
 
+  <!-- Script -->
   <script>
     const equipmentDetails = {
       resistanceBands: {
@@ -122,24 +143,28 @@
     };
 
     function openModal(id) {
-  const content = equipmentDetails[id];
-  document.getElementById("modalInnerContent").innerHTML = `
-    <h2 class="text-3xl font-bold text-blue-600 mb-4">${content.title}</h2>
-    <p class="text-gray-700 whitespace-pre-line mb-6">${content.text}</p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      ${content.images.map(img => `<img src="${img}" alt="${content.title}" class="rounded-xl shadow">`).join('')}
-    </div>
-  `;
-  document.getElementById("modalBackdrop").classList.remove("hidden");
-  document.getElementById("modalContent").classList.remove("hidden");
-}
-
+      const content = equipmentDetails[id];
+      document.getElementById("modalInnerContent").innerHTML = `
+        <h2 class="text-3xl font-bold text-blue-600 mb-4">${content.title}</h2>
+        <p class="text-gray-700 dark:text-gray-300 whitespace-pre-line mb-6">${content.text}</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          ${content.images.map(img => `<img src="${img}" alt="${content.title} workout demo" class="rounded-xl shadow">`).join('')}
+        </div>
+      `;
+      document.getElementById("modalBackdrop").classList.remove("hidden");
+      document.getElementById("modalContent").classList.remove("hidden");
+    }
 
     function closeModal() {
       document.getElementById("modalBackdrop").classList.add("hidden");
       document.getElementById("modalContent").classList.add("hidden");
       document.getElementById("modalInnerContent").innerHTML = "";
     }
+
+    // Allow ESC key to close modal
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeModal();
+    });
   </script>
 </body>
 </html>
