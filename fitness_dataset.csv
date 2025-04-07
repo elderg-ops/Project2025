@@ -1,0 +1,101 @@
+age,height,weight,gender,goal,level,preferences,target
+32,1.54,105,Male,Weight Loss,Beginner,Strength,Normal
+42,1.51,64,Female,Lean,Beginner,Strength,Obese
+32,1.81,84,Female,Weight Loss,Advanced,Cardio,Normal
+32,1.89,96,Female,Lean,Intermediate,Strength,Obese
+24,1.53,109,Female,Weight Loss,Intermediate,Cardio,Obese
+25,1.69,81,Male,Lean,Beginner,Cardio,Overweight
+54,1.66,100,Male,Weight Gain,Beginner,Cardio,Obese
+40,1.71,90,Female,Lean,Beginner,Cardio,Obese
+54,1.56,106,Male,Weight Loss,Advanced,Cardio,Overweight
+47,1.66,69,Female,Lean,Beginner,Strength,Obese
+46,1.83,87,Female,Lean,Beginner,Cardio,Lean
+59,1.6,92,Male,Weight Loss,Advanced,Strength,Overweight
+38,1.55,53,Male,Weight Gain,Advanced,Cardio,Obese
+25,1.52,97,Female,Weight Loss,Intermediate,Strength,Lean
+37,1.83,103,Female,Weight Loss,Beginner,Strength,Normal
+31,1.65,97,Female,Weight Loss,Advanced,Strength,Normal
+27,1.56,87,Female,Weight Loss,Beginner,Cardio,Overweight
+43,1.52,90,Male,Weight Loss,Intermediate,Strength,Lean
+26,1.85,86,Male,Weight Loss,Intermediate,Cardio,Overweight
+30,1.7,70,Female,Lean,Intermediate,Strength,Overweight
+60,1.61,50,Female,Lean,Intermediate,Cardio,Overweight
+29,1.57,90,Male,Weight Gain,Advanced,Strength,Normal
+48,1.86,55,Female,Weight Loss,Advanced,Cardio,Obese
+60,1.75,72,Female,Weight Loss,Beginner,Cardio,Normal
+33,1.52,77,Male,Weight Loss,Advanced,Strength,Lean
+18,1.73,62,Male,Weight Loss,Beginner,Cardio,Lean
+50,1.71,94,Male,Weight Loss,Advanced,Strength,Normal
+56,1.86,65,Female,Weight Loss,Advanced,Cardio,Overweight
+44,1.82,72,Female,Weight Loss,Advanced,Cardio,Overweight
+54,1.55,58,Female,Weight Loss,Intermediate,Strength,Lean
+29,1.72,78,Male,Weight Gain,Beginner,Strength,Normal
+31,1.9,105,Male,Weight Loss,Intermediate,Strength,Normal
+60,1.51,59,Female,Lean,Intermediate,Strength,Lean
+19,1.52,93,Male,Weight Loss,Intermediate,Strength,Obese
+54,1.84,94,Female,Lean,Intermediate,Cardio,Lean
+45,1.57,91,Male,Lean,Intermediate,Strength,Normal
+34,1.8,89,Female,Weight Gain,Beginner,Strength,Obese
+24,1.69,94,Female,Weight Loss,Intermediate,Strength,Normal
+39,1.82,90,Female,Weight Loss,Intermediate,Cardio,Obese
+42,1.82,65,Male,Lean,Intermediate,Cardio,Normal
+46,1.56,94,Male,Weight Gain,Advanced,Strength,Obese
+49,1.6,105,Female,Weight Gain,Beginner,Cardio,Obese
+59,1.6,77,Female,Lean,Advanced,Strength,Normal
+39,1.66,108,Female,Lean,Advanced,Strength,Overweight
+32,1.7,94,Female,Lean,Intermediate,Cardio,Lean
+34,1.57,107,Male,Weight Gain,Advanced,Cardio,Overweight
+32,1.83,74,Male,Weight Gain,Beginner,Strength,Overweight
+44,1.56,63,Female,Lean,Advanced,Strength,Obese
+25,1.71,90,Male,Weight Gain,Beginner,Strength,Obese
+60,1.71,54,Male,Lean,Intermediate,Cardio,Normal
+57,1.72,77,Female,Weight Gain,Advanced,Strength,Lean
+38,1.64,70,Female,Lean,Advanced,Strength,Obese
+25,1.6,62,Female,Weight Gain,Advanced,Cardio,Normal
+33,1.55,56,Female,Weight Gain,Beginner,Strength,Overweight
+41,1.72,63,Female,Weight Gain,Advanced,Cardio,Overweight
+21,1.59,52,Female,Weight Gain,Beginner,Strength,Normal
+42,1.81,83,Female,Weight Gain,Beginner,Cardio,Obese
+24,1.83,73,Male,Weight Loss,Intermediate,Cardio,Overweight
+31,1.75,105,Male,Weight Loss,Advanced,Cardio,Obese
+32,1.54,102,Male,Lean,Intermediate,Cardio,Normal
+24,1.88,104,Male,Lean,Beginner,Strength,Overweight
+57,1.87,110,Female,Weight Loss,Beginner,Strength,Overweight
+59,1.73,100,Male,Lean,Beginner,Cardio,Lean
+54,1.69,63,Male,Weight Gain,Intermediate,Cardio,Normal
+19,1.54,71,Female,Weight Gain,Intermediate,Cardio,Overweight
+22,1.59,56,Female,Weight Gain,Intermediate,Cardio,Normal
+47,1.61,89,Male,Weight Gain,Beginner,Strength,Obese
+59,1.55,57,Male,Weight Loss,Beginner,Cardio,Normal
+48,1.59,89,Male,Lean,Intermediate,Strength,Obese
+44,1.68,62,Female,Weight Loss,Intermediate,Cardio,Normal
+24,1.68,97,Male,Weight Gain,Intermediate,Strength,Overweight
+29,1.72,60,Male,Weight Gain,Advanced,Cardio,Normal
+30,1.53,88,Male,Weight Loss,Intermediate,Strength,Obese
+53,1.8,100,Female,Weight Loss,Beginner,Cardio,Normal
+41,1.85,65,Male,Weight Gain,Beginner,Cardio,Normal
+21,1.61,56,Male,Weight Gain,Advanced,Strength,Normal
+18,1.67,67,Male,Weight Loss,Advanced,Strength,Overweight
+41,1.68,79,Female,Weight Gain,Beginner,Cardio,Lean
+33,1.76,105,Male,Weight Gain,Advanced,Cardio,Overweight
+22,1.9,63,Male,Weight Gain,Advanced,Cardio,Overweight
+24,1.68,84,Female,Weight Loss,Advanced,Strength,Normal
+51,1.87,109,Male,Lean,Beginner,Strength,Obese
+26,1.58,82,Female,Lean,Beginner,Cardio,Lean
+30,1.89,75,Male,Lean,Beginner,Cardio,Overweight
+33,1.61,71,Male,Weight Gain,Beginner,Strength,Overweight
+23,1.6,57,Female,Weight Loss,Beginner,Cardio,Obese
+18,1.61,79,Female,Weight Gain,Advanced,Cardio,Obese
+38,1.79,71,Female,Weight Loss,Advanced,Cardio,Obese
+58,1.88,107,Female,Weight Loss,Intermediate,Strength,Obese
+18,1.88,52,Female,Lean,Intermediate,Cardio,Lean
+31,1.88,86,Male,Weight Gain,Advanced,Strength,Obese
+60,1.71,65,Female,Weight Loss,Advanced,Cardio,Lean
+52,1.58,59,Male,Lean,Beginner,Cardio,Overweight
+46,1.54,50,Female,Weight Gain,Beginner,Strength,Normal
+48,1.66,56,Female,Weight Gain,Advanced,Cardio,Normal
+36,1.8,105,Female,Weight Gain,Advanced,Cardio,Normal
+60,1.79,52,Male,Weight Gain,Advanced,Strength,Lean
+40,1.8,60,Female,Weight Loss,Beginner,Strength,Overweight
+50,1.51,75,Female,Weight Gain,Beginner,Cardio,Normal
+38,1.78,75,Male,Lean,Beginner,Cardio,Obese
