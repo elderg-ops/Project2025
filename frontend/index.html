@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Fitness Assistant - FitEdge</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <a href="#" class="text-xl font-bold text-blue-600">FitEdge</a>
+      <nav class="space-x-6 flex items-center">
+        <a href="#features" class="text-gray-700 hover:text-blue-600">Features</a>
+        <a href="#about" class="text-gray-700 hover:text-blue-600">About</a>
+        <a href="#contact" class="text-gray-700 hover:text-blue-600">Contact</a>
+        <a href="login.html" id="loginBtn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Login</a>
+        <div id="userInfo" class="text-gray-700 font-medium hidden"></div>
+        <button id="logoutBtn" class="hidden px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 py-20">
+    <div class="max-w-4xl mx-auto text-center px-4">
+      <h1 class="text-4xl font-bold text-gray-900 sm:text-5xl mb-6">Meet FitEdge - Your AI Fitness Assistant</h1>
+      <p class="text-lg text-gray-700 mb-8">
+        Get personalized workouts, diet plans, and progress tracking — powered by AI and your health metrics.
+      </p>
+      <a href="signup.html" class="inline-block px-8 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
+        Get Started
+      </a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 grid gap-10 md:grid-cols-3 text-center">
+      <div>
+        <h3 class="text-xl font-semibold text-blue-600">Smart Workouts</h3>
+        <p class="mt-2 text-gray-600">AI-generated routines based on your goals, schedule, and equipment.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-blue-600">Custom Diet Plans</h3>
+        <p class="mt-2 text-gray-600">Personalized meal suggestions to support your fitness journey.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-blue-600">Progress Tracker</h3>
+        <p class="mt-2 text-gray-600">Track weight, workouts, calories, and health metrics in one place.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-16 bg-gray-100">
+    <div class="max-w-4xl mx-auto text-center px-4">
+      <h2 class="text-3xl font-bold mb-4">Why FitEdge?</h2>
+      <p class="text-gray-700 text-lg">
+        FitEdge blends technology and wellness to give you a truly customized fitness experience. Whether you're a beginner or a pro, we’ve got your back with 24/7 support and real results.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
+      <p class="text-gray-600 mb-6">Questions, feedback, or partnership inquiries? We'd love to hear from you.</p>
+      <a href="mailto:support@fitmate.com" class="text-blue-600 underline">support@fitedge.com</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-10 bg-gray-50 sm:pt-16 lg:pt-24">
+    <div class="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+      <div class="grid grid-cols-2 md:col-span-3 lg:grid-cols-6 gap-y-16 gap-x-12">
+        <div class="col-span-2 md:col-span-3 lg:col-span-2 lg:pr-8">
+          <p class="text-base leading-relaxed text-gray-600 mt-7">
+            FitEdge is your AI-powered companion on your journey to health and wellness. Train smarter, eat better, live stronger.
+          </p>
+          <ul class="flex items-center space-x-3 mt-9">
+            <li><a href="#" class="w-7 h-7 flex items-center justify-center bg-gray-800 text-white rounded-full hover:bg-blue-600">F</a></li>
+            <li><a href="#" class="w-7 h-7 flex items-center justify-center bg-gray-800 text-white rounded-full hover:bg-blue-600">T</a></li>
+            <li><a href="#" class="w-7 h-7 flex items-center justify-center bg-gray-800 text-white rounded-full hover:bg-blue-600">I</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-gray-400 uppercase">Company</p>
+          <ul class="mt-6 space-y-4 text-gray-600">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-gray-400 uppercase">Support</p>
+          <ul class="mt-6 space-y-4 text-gray-600">
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Status</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 text-sm text-center text-gray-400">
+        &copy; 2025 FitEdge. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase App -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3SVXU8JC1sSMOWXpckpUUza5zc-ZoIBc",
+      authDomain: "project-new-cd7e2.firebaseapp.com",
+      projectId: "project-new-cd7e2",
+      storageBucket: "project-new-cd7e2.firebasestorage.app",
+      messagingSenderId: "500836607265",
+      appId: "1:500836607265:web:c68c0d9024b50fe6cbca60"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Auth State Listener
+    firebase.auth().onAuthStateChanged(function(user) {
+      const loginBtn = document.getElementById("loginBtn");
+      const userInfo = document.getElementById("userInfo");
+      const logoutBtn = document.getElementById("logoutBtn");
+
+      if (user) {
+        loginBtn.style.display = "none";
+        userInfo.style.display = "inline-block";
+        logoutBtn.style.display = "inline-block";
+        userInfo.textContent = user.email || "User";
+      } else {
+        loginBtn.style.display = "inline-block";
+        userInfo.style.display = "none";
+        logoutBtn.style.display = "none";
+      }
+    });
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+      firebase.auth().signOut().then(() => {
+        window.location.href = "index.html";
+      }).catch((error) => {
+        console.error("Logout error:", error);
+      });
+    });
+  </script>
+</body>
+</html>
