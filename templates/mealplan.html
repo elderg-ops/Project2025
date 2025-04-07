@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Diet Plan Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        label, input, select {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        input, select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .result h2 {
+            margin-top: 0;
+            color: #27ae60;
+
+            .table-wrapper {
+    overflow-x: auto;
+}
+
+.result table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.result th,
+.result td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.result th {
+    background-color: #007bff;
+    color: white;
+}
+
+.result tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+        }
+    </style>
+</head>
+<body>
+    <h1>Personalized Diet Plan Generator</h1>
+    <form method="POST">
+        <label>Age:</label>
+        <input type="number" name="age" required>
+
+        <label>Gender:</label>
+        <select name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <label>Weight (kg):</label>
+        <input type="number" name="weight" required>
+
+        <label>Height (cm):</label>
+        <input type="number" name="height" required>
+
+        <label>Activity Level:</label>
+        <select name="activity_level" required>
+            <option value="sedentary">Sedentary</option>
+            <option value="light">Light</option>
+            <option value="moderate">Moderate</option>
+            <option value="active">Active</option>
+        </select>
+
+        <label>Goal:</label>
+        <select name="goal" required>
+            <option value="weight loss">Weight Loss</option>
+            <option value="muscle gain">Muscle Gain</option>
+            <option value="maintenance">Maintenance</option>
+        </select>
+
+        <label>Diet Type:</label>
+        <select name="diet_type" required>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="non vegetarian">Non-Vegetarian</option>
+            <option value="vegan">Vegan</option>
+        </select>
+
+        <button type="submit">Generate Plan</button>
+    </form>
+
+    {% if diet_plan %}
+    <div class="result">
+        <h2>Generated Diet Plan</h2>
+        <div class="table-wrapper">
+          {{ diet_plan|safe }}
+      </div>
+    </div>
+    {% endif %}
+</body>
+</html>

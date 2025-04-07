@@ -24,7 +24,7 @@ window.login = function () {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       alert("Login Successful!");
-      window.location.href = "index.html";
+      window.location.href = "index";
     })
     .catch((error) => {
       alert(error.message);
@@ -39,7 +39,7 @@ window.signup = function () {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       alert("Signup Successful!");
-      window.location.href = "index.html";
+      window.location.href = "index";
     })
     .catch((error) => {
       alert(error.message);

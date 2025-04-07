@@ -15,29 +15,24 @@
       <input type="email" id="signupEmail" placeholder="Email" required />
       <input type="password" id="signupPassword" placeholder="Password" required />
       <button type="submit">Sign Up</button>
-      <p>Already have an account? <a href="login.html">Login here</a></p>
+      <p>Already have an account? <a href="/login">Login here</a></p>
     </form>
   </div>
 
-  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
-  <!-- Firebase Config & Initialization -->
   <script>
     const firebaseConfig = {
-        apiKey: "AIzaSyA3SVXU8JC1sSMOWXpckpUUza5zc-ZoIBc",
-        authDomain: "project-new-cd7e2.firebaseapp.com",
-        projectId: "project-new-cd7e2",
-        storageBucket: "project-new-cd7e2.firebasestorage.app",
-        messagingSenderId: "500836607265",
-        appId: "1:500836607265:web:c68c0d9024b50fe6cbca60"
-        };
+      apiKey: "AIzaSyA3SVXU8JC1sSMOWXpckpUUza5zc-ZoIBc",
+      authDomain: "project-new-cd7e2.firebaseapp.com",
+      projectId: "project-new-cd7e2",
+      storageBucket: "project-new-cd7e2.appspot.com",
+      messagingSenderId: "500836607265",
+      appId: "1:500836607265:web:c68c0d9024b50fe6cbca60"
+    };
     firebase.initializeApp(firebaseConfig);
-  </script>
 
-  <!-- Sign Up Script -->
-  <script>
     document.getElementById('signupForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -47,17 +42,12 @@
 
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-          // Save name to localStorage
           localStorage.setItem('username', name);
-
-          // Optional: You can update the Firebase user profile with the name
-          return userCredential.user.updateProfile({
-            displayName: name
-          });
+          return userCredential.user.updateProfile({ displayName: name });
         })
         .then(() => {
           alert("Signup successful!");
-          window.location.href = "index.html";
+          window.location.href = "/";
         })
         .catch((error) => {
           alert("Error: " + error.message);
