@@ -82,32 +82,32 @@
         .result h2 {
             margin-top: 0;
             color: #27ae60;
+        }
 
-            .table-wrapper {
-    overflow-x: auto;
-}
+        .table-wrapper {
+            overflow-x: auto;
+        }
 
-.result table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
+        .result table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
 
-.result th,
-.result td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-}
+        .result th,
+        .result td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
 
-.result th {
-    background-color: #007bff;
-    color: white;
-}
+        .result th {
+            background-color: #007bff;
+            color: white;
+        }
 
-.result tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
+        .result tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
@@ -158,9 +158,21 @@
     <div class="result">
         <h2>Generated Diet Plan</h2>
         <div class="table-wrapper">
-          {{ diet_plan|safe }}
-      </div>
+            {{ diet_plan|safe }}
+        </div>
+
+        <form action="/download_pdf" method="POST">
+            <input type="hidden" name="diet_html" id="diet_html">
+            <button type="submit" onclick="prepareHTML()">Download PDF</button>
+        </form>
     </div>
     {% endif %}
+
+    <script>
+    function prepareHTML() {
+        const tableHTML = document.querySelector('.table-wrapper').innerHTML;
+        document.getElementById('diet_html').value = tableHTML;
+    }
+    </script>
 </body>
 </html>
