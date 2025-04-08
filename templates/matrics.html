@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FitEdge - ML Model Metrics Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #34495e;
+    }
+
+    .metric {
+      font-size: 18px;
+      margin: 10px 0;
+      color: #2d3436;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #27ae60;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📊 FitEdge ML Model Metrics Dashboard</h1>
+
+  <div class="dashboard">
+
+    <!-- Workout Planner -->
+    <div class="card">
+      <h2>🏋️ Workout Planner</h2>
+      <div class="metric">Accuracy Score: <span class="highlight" id="workoutAccuracy">85%</span></div>
+      <div class="metric">Similarity to Expert Plans: <span id="workoutSimilarity">88%</span></div>
+      <div class="metric">Average Generation Time: <span id="workoutTime">0.8s</span></div>
+    </div>
+
+    <!-- Meal Planner -->
+    <div class="card">
+      <h2>🥗 Meal Planner</h2>
+      <div class="metric">Calorie Deviation: <span class="highlight" id="mealDeviation">±5%</span></div>
+      <div class="metric">Macronutrient Match: <span id="mealMacro">92%</span></div>
+      <div class="metric">Average Generation Time: <span id="mealTime">1.2s</span></div>
+    </div>
+
+    <!-- Push-Up Tracker -->
+    <div class="card">
+      <h2>💪 Push-Up Tracker</h2>
+      <div class="metric">Tracking Accuracy: <span class="highlight" id="pushupAccuracy">94%</span></div>
+      <div class="metric">False Positives: <span id="pushupFalse">2%</span></div>
+      <div class="metric">Missed Detections: <span id="pushupMissed">4%</span></div>
+    </div>
+
+  </div>
+
+</body>
+</html>

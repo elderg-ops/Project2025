@@ -3,3 +3,6 @@ flask-cors
 scikit-learn
 google.generativeai
 numpy
+mediapipe 
+pyttsx3
+opencv-python

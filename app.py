@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, send_file, make_response
+from flask import Flask, request, jsonify, render_template, send_file, make_response, Response, redirect, url_for
 import google.generativeai as genai
 import os
 import re
@@ -8,9 +8,15 @@ import io
 import json
 import numpy as np
 from flask_cors import CORS
+import cv2
+import mediapipe as mp
+import numpy as np
+import pyttsx3
+import time
+import threading
 
 # 🔐 Configure Gemini API
-os.environ["GOOGLE_API_KEY"] = "AIzaSyD2rwr19WRjGwngGOdfk2EWfhwBaGhc84U"
+os.environ["GOOGLE_API_KEY"] = "AIzaSyD4h0g4LQ3B9Ljgf5N2e9QgiugOHirlmWA"
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
 # ✅ Rename Gemini model to avoid clash with ML model
@@ -26,6 +32,11 @@ with open("encoders.pkl", "rb") as f:
 # 🚀 Flask App Setup
 app = Flask(__name__)
 CORS(app)
+camera = cv2.VideoCapture(0)
+
+# Mediapipe setup
+mp_drawing = mp.solutions.drawing_utils
+mp_pose = mp.solutions.pose
 
 # 🔍 Regex filter for Jinja2
 @app.template_filter('regex_search')
@@ -52,6 +63,10 @@ def login():
 @app.route('/equipment')
 def equipment():
     return render_template("equipment.html")
+
+@app.route('/tracker')
+def tracker():
+    return render_template("tracker.html")
 
 # ✅ NEW: Generate Meal Plan via Gemini AI
 @app.route('/generateMealPlan', methods=['POST'])
@@ -173,7 +188,7 @@ def download_pdf():
     """
 
     # 👇 Path to wkhtmltopdf (update this as per your system)
-    config = pdfkit.configuration(wkhtmltopdf='C:\\Users\\ADRIAN\\OneDrive\\Desktop\\Project2025\\Project2025\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
+    config = pdfkit.configuration(wkhtmltopdf='C:\\Users\\Admin\\Desktop\\Project2025\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
 
     # Generate PDF from HTML string
     pdf = pdfkit.from_string(full_html, False, configuration=config)
@@ -275,6 +290,118 @@ def predict():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+
+# TTS Setup
+def speak_text(text):
+    engine = pyttsx3.init()
+    engine.setProperty('rate', 150)
+    engine.setProperty('volume', 1.0)
+    engine.say(text)
+    engine.runAndWait()
+
+# Global variables
+counter = 0
+stage = None
+last_warning = ""
+last_speak_time = 0
+
+def calculate_angle(a, b, c):
+    a, b, c = np.array(a), np.array(b), np.array(c)
+    radians = np.arctan2(c[1]-b[1], c[0]-b[0]) - np.arctan2(a[1]-b[1], a[0]-b[0])
+    angle = np.abs(radians * 180.0 / np.pi)
+    return 360 - angle if angle > 180 else angle
+
+def speak_warning(warning):
+    global last_warning, last_speak_time
+    current_time = time.time()
+    if warning != last_warning or (current_time - last_speak_time > 10):
+        threading.Thread(target=speak_text, args=(warning,)).start()
+        last_warning = warning
+        last_speak_time = current_time
+
+
+pose = mp_pose.Pose(min_detection_confidence=0.7, min_tracking_confidence=0.7)
+
+def detect_pushups(frame):
+        global counter, stage
+        frame = cv2.flip(frame, 1)
+        image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        image.flags.writeable = False
+        results = pose.process(image)
+        image.flags.writeable = True
+        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+
+        if results.pose_landmarks:
+            landmarks = results.pose_landmarks.landmark
+            shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,
+                        landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
+            elbow = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x,
+                     landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
+            wrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,
+                     landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
+            hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x,
+                   landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
+            ankle = [landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].x,
+                     landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].y]
+
+            elbow_angle = calculate_angle(shoulder, elbow, wrist)
+            back_angle = calculate_angle(shoulder, hip, ankle)
+
+            if elbow_angle > 160:
+                stage = "up"
+            if elbow_angle < 90 and stage == "up":
+                stage = "down"
+                counter += 1
+
+            bad_form_warning = ""
+            if elbow_angle > 90 and stage == "down":
+                bad_form_warning = "Go lower!"
+            elif back_angle < 150:
+                bad_form_warning = "Keep your back straight!"
+            elif hip[1] > shoulder[1] + 0.05:
+                bad_form_warning = "Don't drop your hips!"
+
+            if bad_form_warning:
+                speak_warning(bad_form_warning)
+
+            mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
+
+            cv2.putText(image, f'Elbow: {int(elbow_angle)}', (30, 50),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
+            cv2.putText(image, f'Back: {int(back_angle)}', (30, 80),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
+            cv2.putText(image, f'Push-ups: {counter}', (30, 110),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
+
+            if bad_form_warning:
+                cv2.putText(image, bad_form_warning, (30, 160),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 3)
+
+        return image
+
+def generate_frames():
+    while True:
+        success, frame = camera.read()
+        frame = cv2.resize(frame, (640, 480))
+        if not success:
+            break
+        else:
+            processed_frame = detect_pushups(frame)
+            ret, buffer = cv2.imencode('.jpg', processed_frame)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+            
+@app.route('/video_feed')
+def video_feed():
+    return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/stop')
+def stop():
+    global streaming
+    streaming = False
+    camera.release()
+    return redirect(url_for('index'))
 
 # 🏁 Start app
 if __name__ == "__main__":

@@ -1,178 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>AI Diet Plan Generator</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personalized Diet Plan Generator - FitEdge</title>
 
-        body {
-            background: #f0f4f8;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            align-items: center;
-            flex-direction: column;
-        }
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
 
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
+  <!-- Dark Mode Support -->
+  <script>
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
 
-        form {
-            background-color: #fff;
-            padding: 25px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 500px;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        label, input, select {
-            display: block;
-            width: 100%;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
 
-        input, select {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            transition: border 0.3s;
-        }
+   
 
-        input:focus, select:focus {
-            border-color: #007bff;
-            outline: none;
-        }
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+    }
 
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            font-size: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    @media (min-width: 768px) {
+      .wrapper {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+    form, .result {
+      background-color: #fff;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      width: 100%;
+      animation: slideUp 0.8s ease;
+    }
 
-        .result {
-            margin-top: 30px;
-            background-color: #fff;
-            padding: 25px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            max-width: 600px;
-            width: 90%;
-        }
+    label, input, select {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
 
-        .result h2 {
-            margin-top: 0;
-            color: #27ae60;
-        }
+    input, select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s ease;
+    }
 
-        .table-wrapper {
-            overflow-x: auto;
-        }
+    input:focus, select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
 
-        .result table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-        .result th,
-        .result td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
+    button:hover {
+      background-color: #0056b3;
+    }
 
-        .result th {
-            background-color: #007bff;
-            color: white;
-        }
+    .result h2 {
+      margin-top: 0;
+      color: #27ae60;
+      font-size: 24px;
+    }
 
-        .result tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-    </style>
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+
+    .result table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .result th,
+    .result td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .result th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .result tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(60px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .right-side {
+  flex: 1;
+  background-color: rgb(174, 223, 239);
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 3px solid #ffffff20;
+}
+
+  </style>
 </head>
-<body>
-    <h1>Personalized Diet Plan Generator</h1>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white">
+
+  <!-- ✅ Integrated Header from Home Workout Page -->
+  <header class="bg-white shadow-md dark:bg-gray-800 dark:text-white">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
+      <a href="/" class="text-xl font-bold text-blue-600">FitEdge</a>
+      <a href="/" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+        Home
+      </a>      
+    </div>
+  </header>
+
+  <!-- Form & Result Section -->
+  <div class="wrapper">
+    <!-- Left Side: Form -->
     <form method="POST">
-        <label>Age:</label>
-        <input type="number" name="age" required>
+      <h1 class="text-2xl font-semibold text-center mb-6 text-gray-800">Personalized Diet Plan Generator</h1>
 
-        <label>Gender:</label>
-        <select name="gender" required>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-        </select>
+      <label>Age:</label>
+      <input type="number" name="age" required />
 
-        <label>Weight (kg):</label>
-        <input type="number" name="weight" required>
+      <label>Gender:</label>
+      <select name="gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
 
-        <label>Height (cm):</label>
-        <input type="number" name="height" required>
+      <label>Weight (kg):</label>
+      <input type="number" name="weight" required />
 
-        <label>Activity Level:</label>
-        <select name="activity_level" required>
-            <option value="sedentary">Sedentary</option>
-            <option value="light">Light</option>
-            <option value="moderate">Moderate</option>
-            <option value="active">Active</option>
-        </select>
+      <label>Height (cm):</label>
+      <input type="number" name="height" required />
 
-        <label>Goal:</label>
-        <select name="goal" required>
-            <option value="weight loss">Weight Loss</option>
-            <option value="muscle gain">Muscle Gain</option>
-            <option value="maintenance">Maintenance</option>
-        </select>
+      <label>Activity Level:</label>
+      <select name="activity_level" required>
+        <option value="sedentary">Sedentary</option>
+        <option value="light">Light</option>
+        <option value="moderate">Moderate</option>
+        <option value="active">Active</option>
+      </select>
 
-        <label>Diet Type:</label>
-        <select name="diet_type" required>
-            <option value="vegetarian">Vegetarian</option>
-            <option value="non vegetarian">Non-Vegetarian</option>
-            <option value="vegan">Vegan</option>
-        </select>
+      <label>Goal:</label>
+      <select name="goal" required>
+        <option value="weight loss">Weight Loss</option>
+        <option value="muscle gain">Muscle Gain</option>
+        <option value="maintenance">Maintenance</option>
+      </select>
 
-        <button type="submit">Generate Plan</button>
+      <label>Diet Type:</label>
+      <select name="diet_type" required>
+        <option value="vegetarian">Vegetarian</option>
+        <option value="non vegetarian">Non-Vegetarian</option>
+        <option value="vegan">Vegan</option>
+      </select>
+
+      <button type="submit">Generate Plan</button>
     </form>
 
+    <!-- Right Side: Diet Plan Output -->
     {% if diet_plan %}
     <div class="result">
-        <h2>Generated Diet Plan</h2>
-        <div class="table-wrapper">
-            {{ diet_plan|safe }}
-        </div>
-
-        <form action="/download_pdf" method="POST">
-            <input type="hidden" name="diet_html" id="diet_html">
-            <button type="submit" onclick="prepareHTML()">Download PDF</button>
-        </form>
+      <h2>Generated Diet Plan</h2>
+      <div class="table-wrapper">
+        {{ diet_plan|safe }}
+      </div>
     </div>
     {% endif %}
+  </div>
 
-    <script>
-    function prepareHTML() {
-        const tableHTML = document.querySelector('.table-wrapper').innerHTML;
-        document.getElementById('diet_html').value = tableHTML;
-    }
-    </script>
 </body>
 </html>

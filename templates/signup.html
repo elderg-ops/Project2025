@@ -4,8 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sign Up - FitEdge</title>
+
+  <!-- Orbitron font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+  <!-- Tailwind CDN (if not included via build tools) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -14,24 +23,66 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    body {
-      background: linear-gradient(135deg, #56CCF2, #2F80ED);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    html, body {
+      height: 100%;
+      width: 100%;
     }
 
-    .form-container {
-      background-color: #ffffff;
-      padding: 2.5rem 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 400px;
+    .animated-bg {
+      background: linear-gradient(-45deg, #0f0f0f, #1c1c1c, #2e3b45, #0f0f0f);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .split-container {
+      display: flex;
+      max-width: 1000px;
+      width: 90%;
+      margin: auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    }
+
+    .left-side {
+      flex: 1.3;
+      background: url('/static/images/img3.jpg') center/cover no-repeat;
+      min-height: 500px;
+      border-right: 3px solid #ffffff20;
+    }
+
+    .right-side {
+      flex: 1;
+      background-color: rgb(174, 223, 239);
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 3px solid #ffffff20;
+    }
+
+    .about-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .about-section.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .form-container h2 {
+      font-family: 'Orbitron', sans-serif;
       text-align: center;
       margin-bottom: 1.5rem;
       color: #2F80ED;
@@ -88,20 +139,42 @@
     }
   </style>
 </head>
-<body>
 
-  <div class="form-container">
-    <h2>Sign Up</h2>
-    <form id="signupForm">
-      <input type="text" id="signupName" placeholder="Full Name" required />
-      <input type="email" id="signupEmail" placeholder="Email" required />
-      <input type="password" id="signupPassword" placeholder="Password" required />
-      <button type="submit">Sign Up</button>
-      <p>Already have an account? <a href="login.html">Login here</a></p>
-    </form>
-    <div id="error-message"></div>
+<body class="animated-bg">
+  <!-- Header/Navbar -->
+  <header class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <a href="index.html" class="text-xl font-bold text-black">FitEdge</a>
+      <nav class="space-x-6 flex items-center">
+        <a href="#features" class="text-gray-700 hover:text-blue-600">Features</a>
+        <a href="#about" class="text-gray-700 hover:text-blue-600">About</a>
+        <a href="#contact" class="text-gray-700 hover:text-blue-600">Contact</a>
+        <a href="login" id="loginBtn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Login</a>
+        <div id="userInfo" class="text-gray-700 font-medium hidden"></div>
+        <button id="logoutBtn" class="hidden px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="flex-grow flex items-center justify-center">
+    <div class="split-container about-section">
+      <div class="left-side"></div>
+      <div class="right-side form-container">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+          <input type="text" id="signupName" placeholder="Full Name" required />
+          <input type="email" id="signupEmail" placeholder="Email" required />
+          <input type="password" id="signupPassword" placeholder="Password" required />
+          <button type="submit">Sign Up</button>
+          <p>Already have an account? <a href="login">Login here</a></p>
+          <div id="error-message"></div>
+        </form>
+      </div>
+    </div>
   </div>
 
+  <!-- Firebase Authentication -->
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyA3SVXU8JC1sSMOWXpckpUUza5zc-ZoIBc",
@@ -117,17 +190,12 @@
 
     document.getElementById('signupForm').addEventListener('submit', function(e) {
       e.preventDefault();
-
       const name = document.getElementById('signupName').value;
       const email = document.getElementById('signupEmail').value;
       const password = document.getElementById('signupPassword').value;
 
       auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-          const user = userCredential.user;
-          return user.updateProfile({ displayName: name });
-        })
-        .then(() => {
           localStorage.setItem('username', name);
           window.location.href = "/";
         })
@@ -135,7 +203,10 @@
           document.getElementById('error-message').textContent = error.message;
         });
     });
-  </script>
 
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('.about-section').classList.add('show');
+    });
+  </script>
 </body>
 </html>

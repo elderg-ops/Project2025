@@ -1,50 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Workout Plan Generator</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitEdge - Home Workout & Plan Generator</title>
+
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- Dark Mode Support -->
+  <script>
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+
   <style>
     body {
-    font-family: Arial, sans-serif;
-    background: #f9f9f9;
-    padding: 20px;
-  }
-  
-  .container {
-    max-width: 600px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  input, select, button {
-    display: block;
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-  }
-  
-  button {
-    background: #4CAF50;
-    color: white;
-    cursor: pointer;
-    border: none;
-  }
-  
-  button:hover {
-    background: #45a049;
-  }
-  
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    input, select, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+    button:hover {
+      background: #45a049;
+    }
   </style>
 </head>
-<body>
-  <div class="container">
-    <h1>Personalized Workout Plan</h1>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white">
+
+  <!-- 🔷 Shared Header -->
+  <header class="bg-white shadow-md dark:bg-gray-800 dark:text-white">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
+      <a href="/" class="text-xl font-bold text-blue-600">FitEdge</a>
+      <nav class="space-x-6 flex items-center">
+        <a href="#equipment" class="text-gray-700 hover:text-blue-600 dark:text-white">Equipment</a>
+        <a href="#plan" class="text-gray-700 hover:text-blue-600 dark:text-white">Workout Plan</a>
+        <a href="#contact" class="text-gray-700 hover:text-blue-600 dark:text-white">Contact</a>
+        <a href="login" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  
+
+  <!-- 📝 Section 2: Workout Plan Generator -->
+  <section id="plan" class="container my-12">
+    <h1 class="text-3xl font-bold mb-4 text-center">Personalized Workout Plan Generator</h1>
     <form id="workout-form">
       <input type="number" id="age" placeholder="Age" required>
       <input type="number" id="height" placeholder="Height (in meters)" step="0.01" required>
@@ -77,18 +102,18 @@
       </select>
 
       <input type="number" id="days" placeholder="Number of Days (default 7)" min="1" max="30">
-
       <button type="submit">Generate Plan</button>
     </form>
 
-    <div id="result"></div>
-  </div>
+    <div id="result" class="mt-6"></div>
+  </section>
 
+  <!-- 🔽 Script to handle form -->
   <script>
     const form = document.getElementById("workout-form");
     const resultDiv = document.getElementById("result");
 
-    form.addEventListener("submit", async function(e) {
+    form.addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const data = {
@@ -111,18 +136,17 @@
       const result = await response.json();
 
       if (result.error) {
-        resultDiv.innerHTML = `<p style="color: red;">Error: ${result.error}</p>`;
+        resultDiv.innerHTML = `<p class="text-red-600">Error: ${result.error}</p>`;
         return;
       }
 
-      // 🆕 Format output with reps and sets
-      let html = `<h3><strong>Body Type:</strong> ${result.type}</h3><ul>`;
+      let html = `<h3 class="text-xl font-semibold mb-2">Body Type: ${result.type}</h3><ul class="list-disc ml-5 space-y-2">`;
       result.plan.forEach(day => {
-        const formattedExercises = day.exercises.map(
+        const exercises = day.exercises.map(
           ex => `${ex.name} (${ex.sets}×${ex.reps})`
         ).join(', ');
-        const durationRange = `${day.duration}–${day.duration + 15} minutes`;
-        html += `<li><strong>Day ${day.day}:</strong> ${formattedExercises} — ${durationRange} (${day.intensity})</li>`;
+        const duration = `${day.duration}–${day.duration + 15} mins`;
+        html += `<li><strong>Day ${day.day}:</strong> ${exercises} — ${duration} (${day.intensity})</li>`;
       });
       html += "</ul>";
       resultDiv.innerHTML = html;

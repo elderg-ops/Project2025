@@ -2,10 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - FitEdge</title>
+
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+  <!-- Meta Tags -->
+  <meta name="description" content="Explore expert guidance on home gym equipment including tips, posture advice, and images for proper usage.">
+  <meta property="og:title" content="Home Workout Equipment - FitEdge">
+  <meta property="og:description" content="Master your home workout gear with this visual and informative guide.">
+  <meta property="og:image" content="https://via.placeholder.com/300x200">
+  <meta property="og:type" content="website">
+
+  <!-- Dark Mode -->
+  <script>
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -14,26 +37,42 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    body {
-      background: linear-gradient(135deg, #56CCF2, #2F80ED);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    body, html {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
     }
 
-    .form-container {
-      background-color: #ffffff;
-      padding: 2.5rem 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    .animated-bg {
+      background: linear-gradient(-45deg, #0f0f0f, #1c1c1c, #2e3b45, #0f0f0f);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100%;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .login-box {
+      background-color: #fff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
       width: 100%;
       max-width: 400px;
+      animation: fadeInUp 1s ease;
     }
 
-    .form-container h2 {
+    .login-box h2 {
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 25px;
       color: #2F80ED;
     }
 
@@ -44,10 +83,10 @@
 
     input {
       padding: 12px;
-      margin-bottom: 1rem;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
+      border-radius: 8px;
+      font-size: 16px;
     }
 
     button {
@@ -55,8 +94,8 @@
       background-color: #2F80ED;
       color: #fff;
       border: none;
-      border-radius: 5px;
-      font-size: 1rem;
+      border-radius: 8px;
+      font-size: 16px;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
@@ -67,7 +106,8 @@
 
     p {
       text-align: center;
-      margin-top: 1rem;
+      margin-top: 16px;
+      font-size: 14px;
     }
 
     a {
@@ -84,21 +124,43 @@
       color: red;
       font-size: 0.9rem;
       text-align: center;
-      margin-top: 1rem;
+      margin-top: 10px;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white">
 
-  <div class="form-container">
-    <h2>Login</h2>
-    <form id="loginForm">
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-      <p>Don’t have an account? <a href="/signup">Sign up here</a></p>
-    </form>
-    <p id="error-message"></p>
+  <!-- Header -->
+  <header class="bg-white shadow-md dark:bg-gray-800 dark:text-white">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
+      <a href="/" class="text-xl font-bold text-blue-600">FitEdge</a>
+      <a href="/" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Home</a>
+    </div>
+  </header>
+
+  <!-- Login Section -->
+  <div class="animated-bg">
+    <div class="login-box">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+        <p>Don't have an account? <a href="/signup">Sign up here</a></p>
+      </form>
+      <p id="error-message"></p>
+    </div>
   </div>
 
   <script>

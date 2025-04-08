@@ -1,0 +1,88 @@
+/* Base Styles */
+body {
+  background-color: #F0F4F8;
+  color: #111827;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Anchor Hover Effects */
+a {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #EC4899;
+}
+
+/* Button Styling */
+.get-started-btn {
+  background-color: #EC4899;
+  color: #ffffff;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.4);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.get-started-btn:hover {
+  background-color: #DB2777;
+  transform: translateY(-2px);
+}
+
+/* Hero Section Overlay */
+.hero-overlay {
+  background: linear-gradient(to right, #4F46E5, #EC4899, #EF4444);
+  opacity: 0.7;
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.max-w-4xl {
+  max-width: 64rem;
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
+.shadow-xl {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Fonts */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  h1 {
+    font-size: 3rem;
+  }
+}
+
+p {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+}
+
+/* Footer Icon Hover */
+.footer-icon {
+  color: #6B7280;
+  transition: color 0.3s ease;
+}
+
+.footer-icon:hover {
+  color: #EC4899;
+}
